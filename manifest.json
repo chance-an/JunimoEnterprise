@@ -1,0 +1,9 @@
+﻿{
+  "Name": "chance.junimo.box",
+  "Author": "Chance An",
+  "Version": "1.0.0",
+  "Description": "<One or two sentences about the mod>",
+  "UniqueID": "chance.junimo.box",
+  "EntryDll": "chance.junimo.box.dll",
+  "UpdateKeys": []
+}
