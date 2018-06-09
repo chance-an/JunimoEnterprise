@@ -29,7 +29,7 @@
 
         public List<Vector2> AnalyzeLocationInfo(GameLocation location)
         {
-            foreach (KeyValuePair<Vector2, StardewValley.Object> entry in location.Objects)
+            foreach (KeyValuePair<Vector2, StardewValley.Object> entry in location.Objects.Pairs)
             {
                 StardewValley.Object obj = entry.Value;
                 Vector2 objectLocation = entry.Key;
@@ -50,7 +50,7 @@
                 this.monitor.Log($"Found {item.Stack} {item.Name} in chest", LogLevel.Info);
             }
             
-            foreach (KeyValuePair<Vector2, TerrainFeature> tile in location.terrainFeatures )
+            foreach (KeyValuePair<Vector2, TerrainFeature> tile in location.terrainFeatures.Pairs )
             {
                 TerrainFeature item = tile.Value;
                 Vector2 loc = tile.Key;

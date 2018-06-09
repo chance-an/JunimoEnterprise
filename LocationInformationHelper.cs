@@ -15,7 +15,7 @@ namespace JunimoIntelliBox
         {
             Farm farm = Game1.getFarm();
 
-            List<Building> buildings = farm.buildings;
+            List<Building> buildings = new List<Building>(farm.buildings);
 
             return buildings.Where(building =>
                 building is Coop ||
@@ -25,7 +25,7 @@ namespace JunimoIntelliBox
         public IEnumerable<KeyValuePair<Vector2, Object>> GetAnimalProducts(Building animalBuilding)
         {
             List<KeyValuePair<Vector2, Object>> result = new List<KeyValuePair<Vector2, Object>>();
-            foreach (KeyValuePair<Vector2, Object> keyValuePair in animalBuilding.indoors.Objects)
+            foreach (KeyValuePair<Vector2, Object> keyValuePair in animalBuilding.indoors.Value.Objects.Pairs)
             {
                 Object product = keyValuePair.Value;
                 if ((new Regex("egg", RegexOptions.IgnoreCase)).IsMatch(product.Name.ToString()) ||
@@ -63,7 +63,7 @@ namespace JunimoIntelliBox
                     continue;
                 }
 
-                foreach (KeyValuePair<long, FarmAnimal> pair in ((AnimalHouse)farmBuilding.indoors).animals)
+                foreach (KeyValuePair<long, FarmAnimal> pair in ((AnimalHouse)farmBuilding.indoors).animals.Pairs)
                 {
                     allAnimals.Add(pair.Value);
                 };
@@ -91,7 +91,7 @@ namespace JunimoIntelliBox
         {
             IList<KeyValuePair<Vector2, T>> result = new List<KeyValuePair<Vector2, T>>();
 
-            foreach (KeyValuePair<Vector2, StardewValley.Object> entry in location.Objects)
+            foreach (KeyValuePair<Vector2, StardewValley.Object> entry in location.Objects.Pairs)
             {
                 StardewValley.Object obj = entry.Value;
                 Vector2 objectLocation = entry.Key;

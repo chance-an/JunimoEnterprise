@@ -62,7 +62,7 @@
             }
 
             StardewValley.Object @object = new StardewValley.Object(Vector2.Zero, this.animal.currentProduce, (string)null, false, true, false, false);
-            @object.quality = this.animal.produceQuality;
+            @object.quality.Set(this.animal.produceQuality);
 
             return @object;
         }
@@ -86,13 +86,13 @@
 
         private void RemoveProduct()
         {
-            this.animal.friendshipTowardFarmer = Math.Min(1000, this.animal.friendshipTowardFarmer + 5);
+            this.animal.friendshipTowardFarmer.Set(Math.Min(1000, this.animal.friendshipTowardFarmer + 5));
 
-            this.animal.currentProduce = -1;
+            this.animal.currentProduce.Set(-1);
 
             if (this.animal.showDifferentTextureWhenReadyForHarvest)
             {
-                this.animal.sprite.Texture = Game1.content.Load<Texture2D>("Animals\\Sheared" + this.animal.type);
+                this.animal.sprite.Value.LoadTexture("Animals\\Sheared" + this.animal.type);
             }
         }
 

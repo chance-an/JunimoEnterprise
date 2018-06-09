@@ -32,7 +32,7 @@
 
             if (!this.animal.wasPet)
             {
-                this.animal.wasPet = true;
+                this.animal.wasPet.Set(true);
                 this.AdjustAnimalHappiess();
 
                 this.PlayerGainExperience();
@@ -49,18 +49,18 @@
         {
             Farmer farmer = Game1.player;
 
-            this.animal.friendshipTowardFarmer = Math.Min(1000, this.animal.friendshipTowardFarmer + 15);
+            this.animal.friendshipTowardFarmer.Set(Math.Min(1000, this.animal.friendshipTowardFarmer + 15));
             if (farmer.professions.Contains(3) && !this.animal.isCoopDweller())
             {
-                this.animal.friendshipTowardFarmer = Math.Min(1000, this.animal.friendshipTowardFarmer + 15);
-                this.animal.happiness = Math.Min(byte.MaxValue, (byte)((uint)this.animal.happiness + (uint)Math.Max(5, 40 - (int)this.animal.happinessDrain)));
+                this.animal.friendshipTowardFarmer.Set(Math.Min(1000, this.animal.friendshipTowardFarmer + 15));
+                this.animal.happiness.Set( Math.Min(byte.MaxValue, (byte)((uint)this.animal.happiness + (uint)Math.Max(5, 40 - (int)this.animal.happinessDrain))));
             }
             else if (farmer.professions.Contains(2) && this.animal.isCoopDweller())
             {
-                this.animal.friendshipTowardFarmer = Math.Min(1000, this.animal.friendshipTowardFarmer + 15);
-                this.animal.happiness = Math.Min(byte.MaxValue, (byte)((uint)this.animal.happiness + (uint)Math.Max(5, 40 - (int)this.animal.happinessDrain)));
+                this.animal.friendshipTowardFarmer.Set(Math.Min(1000, this.animal.friendshipTowardFarmer + 15));
+                this.animal.happiness.Set( Math.Min(byte.MaxValue, (byte)((uint)this.animal.happiness + (uint)Math.Max(5, 40 - (int)this.animal.happinessDrain))));
             }
-            this.animal.happiness = (byte)Math.Min((int)byte.MaxValue, (int)this.animal.happiness + Math.Max(5, 40 - (int)this.animal.happinessDrain));
+            this.animal.happiness.Set((byte)Math.Min((int)byte.MaxValue, (int)this.animal.happiness + Math.Max(5, 40 - (int)this.animal.happinessDrain)));
         }
 
         private void PlayerGainExperience()
@@ -74,7 +74,7 @@
             {
                 return;
             }
-            this.animal.daysToLay = (byte)2;
+            this.animal.daysToLay.Set((byte)2);
         }
     }
 }

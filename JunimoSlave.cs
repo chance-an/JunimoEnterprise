@@ -16,7 +16,7 @@
         private IJunimoAnimation currentAnimation;
 
         public JunimoSlave(Vector2 position, IMonitor monitor) :
-            base(new AnimatedSprite(Game1.content.Load<Texture2D>("Characters\\Junimo"), 0, 16, 16), position, 0, "JunimoSlave", (LocalizedContentManager)null)
+            base(new AnimatedSprite("Characters\\Junimo", 0, 16, 16), position, 0, "JunimoSlave", (LocalizedContentManager)null)
         {
 
             this.monitor = monitor;
@@ -51,10 +51,10 @@
                 return;
             // Draw sprite frame;
             b.Draw(this.Sprite.Texture, 
-                this.getLocalPosition(Game1.viewport) + new Vector2((float)(this.sprite.spriteWidth * Game1.pixelZoom / 2), (float)((double)this.sprite.spriteHeight * 3.0 / 4.0 * (double)Game1.pixelZoom / Math.Pow((double)(this.sprite.spriteHeight / 16), 2.0)) + (float)this.yJumpOffset - (float)(Game1.pixelZoom * 2)) + (this.shakeTimer > 0 ? new Vector2((float)Game1.random.Next(-1, 2), (float)Game1.random.Next(-1, 2)) : Vector2.Zero), new Rectangle?(this.Sprite.SourceRect), 
+                this.getLocalPosition(Game1.viewport) + new Vector2((float)(this.sprite.Value.spriteWidth * Game1.pixelZoom / 2), (float)((double)this.sprite.Value.spriteHeight * 3.0 / 4.0 * (double)Game1.pixelZoom / Math.Pow((double)(this.sprite.Value.spriteHeight / 16), 2.0)) + (float)this.yJumpOffset - (float)(Game1.pixelZoom * 2)) + (this.shakeTimer > 0 ? new Vector2((float)Game1.random.Next(-1, 2), (float)Game1.random.Next(-1, 2)) : Vector2.Zero), new Rectangle?(this.Sprite.SourceRect), 
                 this.GetColor(), 
                 this.rotation, 
-                new Vector2((float)(this.sprite.spriteWidth * Game1.pixelZoom / 2), (float)((double)(this.sprite.spriteHeight * Game1.pixelZoom) * 3.0 / 4.0)) / (float)Game1.pixelZoom,
+                new Vector2((float)(this.sprite.Value.spriteWidth * Game1.pixelZoom / 2), (float)((double)(this.sprite.Value.spriteHeight * Game1.pixelZoom) * 3.0 / 4.0)) / (float)Game1.pixelZoom,
                 Math.Max(0.2f, this.scale) * (float)Game1.pixelZoom, 
                 this.flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 //Math.Max(0.0f, this.drawOnTop ? 0.991f : (float)(((double)(this.getStandingY() + this.whichJunimoFromThisHut) + (double)this.getStandingX() / 10000.0) / 10000.0))
@@ -64,7 +64,7 @@
             // Draw shadow
             if (this.swimming || this.hideShadow)
                 return;
-            b.Draw(Game1.shadowTexture, Game1.GlobalToLocal(Game1.viewport, this.position + new Vector2((float)(this.sprite.spriteWidth * Game1.pixelZoom) / 2f, (float)(Game1.tileSize * 3) / 4f - (float)Game1.pixelZoom)), new Rectangle?(Game1.shadowTexture.Bounds), 
+            b.Draw(Game1.shadowTexture, Game1.GlobalToLocal(Game1.viewport, this.position + new Vector2((float)(this.sprite.Value.spriteWidth * Game1.pixelZoom) / 2f, (float)(Game1.tileSize * 3) / 4f - (float)Game1.pixelZoom)), new Rectangle?(Game1.shadowTexture.Bounds), 
                 this.GetColor(), 
                 0.0f, 
                 new Vector2((float)Game1.shadowTexture.Bounds.Center.X, (float)Game1.shadowTexture.Bounds.Center.Y), 

@@ -44,7 +44,7 @@
 
         private void RemoveProduct()
         {
-            this.building.indoors.objects.Remove(this.productLocation);
+            this.building.indoors.Value.objects.Remove(this.productLocation);
         }
 
         private void AddToChest(Chest chest, Item animalProduct)

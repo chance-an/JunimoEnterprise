@@ -11,7 +11,7 @@ namespace JunimoIntelliBox.Animations
         public override void Play(GameTime time)
         {
             this.junimo.flip = false;
-            this.junimo.sprite.Animate(time, 32, 8, 50f);
+            this.junimo.sprite.Value.Animate(time, 32, 8, 50f);
         }
     }
 }
