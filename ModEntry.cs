@@ -25,6 +25,8 @@ namespace JunimoIntelliBox
 
         private System.Object plansAccessLock = new System.Object();
 
+        private bool dayHasStarted = false;
+
         /*********
         ** Public methods
         *********/
@@ -39,6 +41,8 @@ namespace JunimoIntelliBox
 
             GameEvents.UpdateTick += this.Update;
 
+            GameEvents.OneSecondTick += OneSecondTick_Update;
+
             this.planer = new Planner(this.Monitor);
 
             this.plans = null;
@@ -46,7 +50,32 @@ namespace JunimoIntelliBox
 
         private void TimeEvents_AfterDayStarted(object sender, EventArgs e)
         {
+            this.dayHasStarted = true;
             //this.PlaceJunimo();
+        }
+
+        private int countOfSeconds = 0; 
+        private void OneSecondTick_Update(object sender, EventArgs e)
+        {
+            if (this.dayHasStarted)
+            {
+                this.countOfSeconds++;
+            }
+
+            if (this.countOfSeconds > 5)
+            {
+                this.countOfSeconds = 0;
+                this.dayHasStarted = false;
+                this.FiveSecondsAfterDayStart();
+            }
+
+            //this.PlaceJunimo();
+        }
+
+        private void FiveSecondsAfterDayStart()
+        {
+            this.Monitor.Log("Five seconds after day started", LogLevel.Info);
+            this.Collect();
         }
 
         private void PlaceJunimo()
@@ -75,6 +104,11 @@ namespace JunimoIntelliBox
         }
 
         private void Collect(string command, string[] args)
+        {
+            this.Collect();
+        }
+
+        private void Collect()
         {
             lock(this.plansAccessLock)
             {
