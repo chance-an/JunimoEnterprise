@@ -72,11 +72,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ReferencePath>D:\Morphine\SteamLibrary\steamapps\common\Stardew Valley;$(ReferencePath)</ReferencePath>
+    <ReferencePath>D:\Develop\C++\boost_1_66_0;D:\Morphine\SteamLibrary\steamapps\common\Stardew Valley;$(ReferencePath)</ReferencePath>
+    <IncludePath>D:\Develop\C++\boost_1_66_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Develop\C++\boost_1_66_0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <ReferencePath>D:\Morphine\SteamLibrary\steamapps\common\Stardew Valley;$(ReferencePath)</ReferencePath>
+    <ReferencePath>D:\Develop\C++\boost_1_66_0;D:\Morphine\SteamLibrary\steamapps\common\Stardew Valley;$(ReferencePath)</ReferencePath>
+    <IncludePath>D:\Develop\C++\boost_1_66_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Develop\C++\boost_1_66_0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -95,6 +99,9 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;NATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <CompileAsManaged>true</CompileAsManaged>
+      <ExceptionHandling>false</ExceptionHandling>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -113,18 +120,19 @@
       <ConformanceMode>true</ConformanceMode>
       <ExceptionHandling>false</ExceptionHandling>
       <CompileAsManaged>true</CompileAsManaged>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForceConformanceInForLoopScope>
       </ForceConformanceInForLoopScope>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zc:twoPhase-  /Od %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/DEBUG:FULL %(AdditionalOptions)</AdditionalOptions>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -160,8 +168,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoostGraph.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="native.h" />
     <ClInclude Include="SerializableGenericDictionary.h" />
+    <ClInclude Include="SerializableTuple.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

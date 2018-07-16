@@ -1,6 +1,7 @@
 ﻿namespace JunimoIntelliBox
 {
     using System;
+    using System.Xml.Serialization;
     using JunimoIntelliBox.Animations;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -8,12 +9,15 @@
     using StardewModdingAPI.Events;
     using StardewValley;
 
-    [Serializable]
     public class JunimoSlave: NPC
     {
+        [XmlIgnore]
         private IMonitor monitor;
+        [XmlIgnore]
         private InputHelper inputHelper;
+        [XmlIgnore]
         private Vector2 movementDirection;
+        [XmlIgnore]
         private IJunimoAnimation currentAnimation;
 
         public JunimoSlave()
@@ -100,6 +104,34 @@
             }
 
             return true;
+        }
+
+        public override void SetMovingLeft(bool b)
+        {
+            base.SetMovingLeft(b);
+
+            this.currentAnimation = new JunimoAnimationMoveLeft(this);
+        }
+
+        public override void SetMovingRight(bool b)
+        {
+            base.SetMovingRight(b);
+
+            this.currentAnimation = new JunimoAnimationMoveRight(this);
+        }
+
+        public override void SetMovingDown(bool b)
+        {
+            base.SetMovingDown(b);
+
+            this.currentAnimation = new JunimoAnimationMoveDown(this);
+        }
+
+        public override void SetMovingUp(bool b)
+        {
+            base.SetMovingUp(b);
+
+            this.currentAnimation = new JunimoAnimationMoveUp(this);
         }
 
         private Vector2 CalculateMovementBasedOnInput(EventArgsInput e)

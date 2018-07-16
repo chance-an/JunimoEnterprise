@@ -44,7 +44,7 @@ namespace JunimoIntelliBox.Plans
                 return PlanExecutionResult.CONTINUE;
             }
 
-            if (this.steps.Count == 0)
+            if (this.steps.Count == 0 && this.currentStep == null)
             {
                 return PlanExecutionResult.SUCCESS;
             }

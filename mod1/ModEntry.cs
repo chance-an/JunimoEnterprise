@@ -85,7 +85,9 @@ namespace JunimoIntelliBox
                 this.plans = new Queue<IPlan>();
 
                 IEnumerable<IPlan> productCollectionPlan = this.planer.CreateAnimalProductCollectionPlan(this.junimosManager);
-                Utility.AddAllToQueue(this.plans, productCollectionPlan);
+                //Utility.AddAllToQueue(this.plans, productCollectionPlan);
+
+                this.plans.Enqueue(productCollectionPlan.FirstOrDefault());
 
 
                 //IEnumerable<IPlan> milkingPlans = this.planer.CreateMilkingPlan();

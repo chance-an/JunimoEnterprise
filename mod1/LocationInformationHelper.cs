@@ -209,5 +209,47 @@ namespace JunimoIntelliBox
 
             return result;
         }
+
+        public IEnumerable<GameLocationNavigationNode> GetAllWarpLocations(GameLocation from, GameLocation to)
+        {
+            List<GameLocationNavigationNode> result = new List<GameLocationNavigationNode>();
+
+            foreach (Warp warp in from.warps)
+            {
+                string targetName = warp.TargetName;
+
+                GameLocation nextLocation = Game1.getLocationFromName(targetName);
+
+                if (nextLocation == to)
+                {
+                    result.Add(
+                        new GameLocationNavigationNode(from, nextLocation, warp.X, warp.Y, 
+                            warp.TargetX, warp.TargetY, targetName)
+                    );
+                }
+            }
+
+            Farm farm = from as Farm;
+
+            if (farm != null)
+            {
+                foreach (Building building in farm.buildings)
+                {
+                    if (building.indoors == null)
+                    {
+                        continue;
+                    }
+                    Vector2 doorLocation = new Vector2(building.tileX + building.humanDoor.X, building.tileY + building.humanDoor.Y);
+
+                    // TODO: Find the entrance near doorLocation
+                    // TODO: find the location for indoor
+                    result.Add(new GameLocationNavigationNode(from, building.indoors, (int)doorLocation.X, (int)doorLocation.Y,
+                        0, 0, building.nameOfIndoors));
+                }
+            }
+
+            return result;
+        }
+
     }
 }

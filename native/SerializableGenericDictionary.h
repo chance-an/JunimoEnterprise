@@ -19,6 +19,21 @@ namespace JunimoEnterpriseNative {
 
         virtual void ReadXml(System::Xml::XmlReader^ reader);
         virtual void WriteXml(System::Xml::XmlWriter^ writer);
+
+        static inline void AddAdditionalSerializeTypes(Type^ type) {
+            additionalSerializeTypes->Add(type);
+        }
+
+    private: 
+        static IList<Type^> ^ additionalSerializeTypes;
+
+        ref struct staticconstruct {
+            staticconstruct() {
+                additionalSerializeTypes = gcnew List<Type^>();
+            };
+        };
+
+        static staticconstruct cons;
     };
 
 }

@@ -1,24 +1,25 @@
 ﻿using System;
 namespace JunimoIntelliBox.Types
 {
+    using JunimoEnterpriseNative;
     using JunimoEnterpriseNative.JEGraphUtilities;
     using System.Xml.Serialization;
 
     public class WarpCorrespondence: IEdgeDescriber<WarpCorrespondence>
     {
-        public Tuple<int, int> from;
-        public Tuple<int, int> to;
+        public SerializableTuple<int, int> from;
+        public SerializableTuple<int, int> to;
         public WarpCorrespondence()
         {
 
         }
         public WarpCorrespondence(GameLocationNavigationNode node)
         {
-            from = new Tuple<int, int>(node.CurrentX, node.CurrentY);
-            to = new Tuple<int, int>(node.TargetX, node.TargetY);
+            from = new SerializableTuple<int, int>(node.CurrentX, node.CurrentY);
+            to = new SerializableTuple<int, int>(node.TargetX, node.TargetY);
         }
 
-        WarpCorrespondence IEdgeDescriber<WarpCorrespondence>.Reverse()
+        public WarpCorrespondence Reverse()
         {
             WarpCorrespondence instance = new WarpCorrespondence();
             instance.from = this.to;

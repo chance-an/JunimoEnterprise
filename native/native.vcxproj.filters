@@ -27,6 +27,15 @@
     <ClInclude Include="SerializableGenericDictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BoostGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="native.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializableTuple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

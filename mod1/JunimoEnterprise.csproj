@@ -40,6 +40,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Morphine\SteamLibrary\steamapps\common\Stardew Valley\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -51,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Graph.cs" />
+    <Compile Include="Algorithms\QuickGraphHelper.cs" />
     <Compile Include="Animations\IJunimoAnimation.cs" />
     <Compile Include="Animations\JunimoAnimationIdle.cs" />
     <Compile Include="GameLocationNavigationNode.cs" />
@@ -73,6 +87,7 @@
     <Compile Include="Plans\AnimalProductCollectionPlan.cs" />
     <Compile Include="Plans\ExecutionResult.cs" />
     <Compile Include="Plans\FarmProductCollectionPlan.cs" />
+    <Compile Include="Plans\GeneratorRunner.cs" />
     <Compile Include="Plans\IStep.cs" />
     <Compile Include="Plans\IPlan.cs" />
     <Compile Include="Plans\MilkingAnimalPlan.cs" />
@@ -80,6 +95,7 @@
     <Compile Include="Plans\ShearingAnimalPlan.cs" />
     <Compile Include="Plans\SimpleProcedureStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Serializer.cs" />
     <Compile Include="Types\WarpCorrespondence.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>

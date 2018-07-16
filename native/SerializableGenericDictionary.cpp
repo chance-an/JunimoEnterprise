@@ -16,8 +16,11 @@ SerializableGenericDictionary<TKey, TValue>::~SerializableGenericDictionary()
 generic <class TKey, class TValue>
 void SerializableGenericDictionary<TKey, TValue>::ReadXml(System::Xml::XmlReader^ reader)
 {
+    array<Type^>^ extraTypes = gcnew array<Type^>(additionalSerializeTypes->Count);
+    additionalSerializeTypes->CopyTo(extraTypes, 0);
+
     XmlSerializer^ keySerializer = gcnew XmlSerializer(TKey::typeid);
-    XmlSerializer^ valueSerializer = gcnew XmlSerializer(TValue::typeid);
+    XmlSerializer^ valueSerializer = gcnew XmlSerializer(TValue::typeid, extraTypes);
 
     bool wasEmpty = reader->IsEmptyElement;
     reader->Read();
@@ -48,8 +51,11 @@ void SerializableGenericDictionary<TKey, TValue>::ReadXml(System::Xml::XmlReader
 generic <class TKey, class TValue>
 void SerializableGenericDictionary<TKey, TValue>::WriteXml(System::Xml::XmlWriter^ writer)
 {
+    array<Type^>^ extraTypes = gcnew array<Type^>(additionalSerializeTypes->Count);
+    additionalSerializeTypes->CopyTo(extraTypes, 0);
+
     XmlSerializer^ keySerializer = gcnew XmlSerializer(TKey::typeid);
-    XmlSerializer^ valueSerializer = gcnew XmlSerializer(TValue::typeid);
+    XmlSerializer^ valueSerializer = gcnew XmlSerializer(TValue::typeid, extraTypes);
 
     for each(TKey key in this->Keys)
     {

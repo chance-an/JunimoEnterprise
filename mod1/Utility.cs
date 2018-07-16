@@ -3,6 +3,7 @@
 namespace JunimoIntelliBox
 {
     using JunimoEnterpriseNative.JEGraphUtilities;
+    using JunimoIntelliBox.Mocks;
     using JunimoIntelliBox.Types;
     using Microsoft.Xna.Framework;
     using Newtonsoft.Json;
@@ -16,14 +17,15 @@ namespace JunimoIntelliBox
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
-
+    using System.Xml;
+    using System.Xml.Serialization;
     using GameGraph = JunimoEnterpriseNative.JEGraphUtilities.Graph<StardewValley.GameLocation, Types.WarpCorrespondence>;
 
     public class Utility
     {
         static Utility() {
             TypeDescriptor.AddAttributes(typeof(GameLocation), new TypeConverterAttribute(typeof(GameLocationToStringTypeConvertor)));
-            TypeDescriptor.AddAttributes(typeof(Tuple<Guid,Guid>), new TypeConverterAttribute(typeof(TupleToStringConverter)));
+            TypeDescriptor.AddAttributes(typeof(Tuple<int,int>), new TypeConverterAttribute(typeof(TupleToStringConverter)));
         }
 
         public static IEnumerable<Vector2> GetSurroundingTiles(Vector2 tileLocation)
@@ -89,18 +91,21 @@ namespace JunimoIntelliBox
             return new Vector2(tile.X * 64, tile.Y * 64);
         }
 
-        public static void SerializeGraph(GameGraph graph)
+        public static string BigCraftablesInformationFilePath = "D:\\Develop\\Stardewvally\\mod1\\mod1\\serialized\\bigCraftablesInformation.json";
+        public static string ObjectInformationFilePath = "D:\\Develop\\Stardewvally\\mod1\\mod1\\serialized\\objectInformation.json";
+
+        public static void SerializeJSON<SType>(SType graph, string outputPath)
         {
             JsonSerializer serializer = new JsonSerializer();
-            //serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
             serializer.TypeNameHandling = TypeNameHandling.All;
+            serializer.Converters.Add(new GameLocationConverter());
 
             ITraceWriter traceWriter = new MemoryTraceWriter();
 
             serializer.TraceWriter = traceWriter;
 
-            using (StreamWriter sw = new StreamWriter("D:\\Develop\\Stardewvally\\mod1\\mod1\\serialized\\testGraph.xml"))
+            using (StreamWriter sw = new StreamWriter(outputPath))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, graph);
@@ -109,27 +114,27 @@ namespace JunimoIntelliBox
             Console.WriteLine(traceWriter.ToString());
         }
 
-        public static GameGraph DeserializeGraph(string datafile = @"D:\Develop\Stardewvally\mod1\mod1\serialized\testGraph.xml")
+        public static SType DeserializeGraph<SType>(string datafile)
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Ignore;
             serializer.TypeNameHandling = TypeNameHandling.All;
+            serializer.Converters.Add(new GameLocationConverter());
 
             ITraceWriter traceWriter = new MemoryTraceWriter();
 
             serializer.TraceWriter = traceWriter;
 
-            GameGraph graph;
+            SType unserialized;
 
             using (StreamReader sr = new StreamReader(datafile))
             using (JsonTextReader reader = new JsonTextReader(sr))
             {
-                graph = serializer.Deserialize<GameGraph>(reader);
+                unserialized = serializer.Deserialize<SType>(reader);
             }
 
             Console.WriteLine(traceWriter.ToString());
-
-            return graph;
+            return unserialized;
         }
 
         public class GameLocationCreator : CustomCreationConverter<GameLocation>
@@ -175,7 +180,33 @@ namespace JunimoIntelliBox
                 str = str.Trim(new char[] { '(', ')' });
                 string[] parts = str.Split(',');
 
-                return new Tuple<Guid, Guid>(new Guid(parts[0]), new Guid(parts[1]));
+                return new Tuple<int, int>(Int32.Parse(parts[0]), Int32.Parse(parts[1]));
+            }
+        }
+
+        public class GameLocationConverter : JsonConverter
+        {
+            public GameLocationConverter() {
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                writer.WriteValue(value.GetType().ToString());
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException("Unnecessary because CanRead is false. The type will skip the converter.");
+            }
+
+            public override bool CanRead
+            {
+                get { return false; }
+            }
+
+            public override bool CanConvert(Type objectType)
+            {
+                return typeof(GameLocation).IsAssignableFrom(objectType);
             }
         }
     }
